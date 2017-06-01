@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="JavaCard PKI isoApplet" default="dist" basedir=".">
-  <description>Builds the project. </description>
-  <target name="dist" description="generate the distribution">
-    <tstamp/>
-    <ant dir="ext/ant"/>
-    <!-- Create the distribution directory -->
-    <taskdef name="javacard" classname="pro.javacard.ant.JavaCard" classpath="ext/ant/ant-javacard.jar"/>
-    <javacard>
-      <cap aid="f2:76:a2:88:bc:fb:a6:9d:34:f3:10" output="IsoApplet.cap" sources="src" version="1.0">
-        <applet class="net.pwendland.javacard.pki.isoapplet.IsoApplet" aid="f2:76:a2:88:bc:fb:a6:9d:34:f3:10:01"/>
-      </cap>
-    </javacard>
-  </target>
-  <target name="clean" description="clean up">
-    <!-- Delete the built applet -->
-    <delete dir="IsoApplet.cap"/>
-  </target>
+<project name="JavaCard PKI isoApplet" default="all" basedir=".">
+	<description>Builds the project. </description>
+
+	<property name="JC221" value="ext/java_card_kit-2_2_1"/>
+	<property name="JC222" value="ext/java_card_kit-2_2_2"/>
+	<property name="JC303" value="ext/java_card_kit-3_0_3"/>
+	<property name="OP20" value="ext/visa_openplatform-2_0"/>
+	<property name="GP211" value="ext/globalplatform-2_1_1"/>
+
+	<taskdef name="javacard" classname="pro.javacard.ant.JavaCard" classpath="ext/ant-javacard.jar"/>
+
+	<target name="all" description="Build the CAP file">
+		<tstamp/>
+		<javacard jckit="${JC222}">
+			<cap aid="f2:76:a2:88:bc:fb:a6:9d:34:f3:10" output="IsoApplet.cap" sources="src" version="1.0">
+				<applet class="net.pwendland.javacard.pki.isoapplet.IsoApplet" aid="f2:76:a2:88:bc:fb:a6:9d:34:f3:10:01"/>
+			</cap>
+		</javacard>
+	</target>
+	<target name="clean" description="clean up">
+		<delete dir="IsoApplet.cap"/>
+	</target>
 </project>
